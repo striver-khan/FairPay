@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../../../../node_modules/@zama-fhe/relayer-sdk/bundle.js"],
+  "sourcesContent": ["export const initSDK = window.relayerSDK.initSDK;\nexport const createInstance = window.relayerSDK.createInstance;\nexport const SepoliaConfig = window.relayerSDK.SepoliaConfig;"],
+  "mappings": ";;;AAAO,IAAM,UAAU,OAAO,WAAW;AAClC,IAAM,iBAAiB,OAAO,WAAW;AACzC,IAAM,gBAAgB,OAAO,WAAW;",
+  "names": []
+}

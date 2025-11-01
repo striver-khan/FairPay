@@ -1,0 +1,100 @@
+{
+  "hash": "ee56b66b",
+  "configHash": "21ca91a3",
+  "lockfileHash": "5e9bca1a",
+  "browserHash": "0eaa401b",
+  "optimized": {
+    "@angular/common": {
+      "src": "../../../../../../node_modules/@angular/common/fesm2022/common.mjs",
+      "file": "@angular_common.js",
+      "fileHash": "a7323745",
+      "needsInterop": false
+    },
+    "@angular/core": {
+      "src": "../../../../../../node_modules/@angular/core/fesm2022/core.mjs",
+      "file": "@angular_core.js",
+      "fileHash": "2a727f9d",
+      "needsInterop": false
+    },
+    "@angular/forms": {
+      "src": "../../../../../../node_modules/@angular/forms/fesm2022/forms.mjs",
+      "file": "@angular_forms.js",
+      "fileHash": "a4b0ced2",
+      "needsInterop": false
+    },
+    "@angular/platform-browser": {
+      "src": "../../../../../../node_modules/@angular/platform-browser/fesm2022/platform-browser.mjs",
+      "file": "@angular_platform-browser.js",
+      "fileHash": "bc609d71",
+      "needsInterop": false
+    },
+    "@angular/router": {
+      "src": "../../../../../../node_modules/@angular/router/fesm2022/router.mjs",
+      "file": "@angular_router.js",
+      "fileHash": "8e2a7d50",
+      "needsInterop": false
+    },
+    "buffer": {
+      "src": "../../../../../../node_modules/buffer/index.js",
+      "file": "buffer.js",
+      "fileHash": "1056263f",
+      "needsInterop": true
+    },
+    "ethers": {
+      "src": "../../../../../../node_modules/ethers/lib.esm/index.js",
+      "file": "ethers.js",
+      "fileHash": "bb6f72f1",
+      "needsInterop": false
+    },
+    "fhevmjs": {
+      "src": "../../../../../../node_modules/fhevmjs/lib/web.js",
+      "file": "fhevmjs.js",
+      "fileHash": "3aad948b",
+      "needsInterop": false
+    },
+    "rxjs": {
+      "src": "../../../../../../node_modules/rxjs/dist/esm5/index.js",
+      "file": "rxjs.js",
+      "fileHash": "3594b8fc",
+      "needsInterop": false
+    },
+    "@zama-fhe/relayer-sdk/bundle": {
+      "src": "../../../../../../node_modules/@zama-fhe/relayer-sdk/bundle.js",
+      "file": "@zama-fhe_relayer-sdk_bundle.js",
+      "fileHash": "1282cfbb",
+      "needsInterop": false
+    },
+    "@zama-fhe/relayer-sdk/web": {
+      "src": "../../../../../../node_modules/@zama-fhe/relayer-sdk/lib/web.js",
+      "file": "@zama-fhe_relayer-sdk_web.js",
+      "fileHash": "6847856d",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "chunk-WKCBSF47": {
+      "file": "chunk-WKCBSF47.js"
+    },
+    "chunk-QWNZ7TY4": {
+      "file": "chunk-QWNZ7TY4.js"
+    },
+    "chunk-BZEUZEIK": {
+      "file": "chunk-BZEUZEIK.js"
+    },
+    "chunk-ZO2GVY5Q": {
+      "file": "chunk-ZO2GVY5Q.js"
+    },
+    "chunk-4NTHIZ3B": {
+      "file": "chunk-4NTHIZ3B.js"
+    },
+    "chunk-P6U2JBMQ": {
+      "file": "chunk-P6U2JBMQ.js"
+    },
+    "chunk-BUQAI4IO": {
+      "file": "chunk-BUQAI4IO.js"
+    },
+    "chunk-KTESVR3Q": {
+      "file": "chunk-KTESVR3Q.js"
+    }
+  }
+}
