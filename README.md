@@ -1,3 +1,109 @@
+# FairPay: Blind Salary Negotiation Protocol
+
+A privacy-preserving salary negotiation system built with Zama's fhEVM (Fully Homomorphic Encryption).
+
+## 🎯 Overview
+
+FairPay enables employers and job seekers to negotiate salaries without revealing their initial offers. The smart contract performs encrypted comparisons to find overlapping ranges and determine fair meeting points.
+
+## 📋 Prerequisites
+
+- Node.js 18+ and npm/yarn
+- Git
+
+## 🚀 Quick Start
+
+### 1. Initialize Project
+
+```bash
+mkdir fairpay-fhevm
+cd fairpay-fhevm
+npm init -y
+```
+
+### 2. Install Dependencies
+
+```bash
+npm install --save-dev hardhat @nomicfoundation/hardhat-toolbox
+npm install fhevm fhevm-core-contracts
+```
+
+### 3. Initialize Hardhat
+
+```bash
+npx hardhat init
+```
+
+Select: "Create a TypeScript project"
+
+### 4. Configure Hardhat
+
+Replace `hardhat.config.ts` with the configuration in the next artifact.
+
+### 5. Project Structure
+
+```
+fairpay-fhevm/
+├── contracts/
+│   └── FairPay.sol
+├── scripts/
+│   └── deploy.ts
+├── test/
+│   └── FairPay.test.ts
+├── hardhat.config.ts
+├── package.json
+└── .env
+```
+
+### 6. Environment Setup
+
+Create `.env` file:
+
+```bash
+PRIVATE_KEY=your_private_key_here
+ZAMA_RPC_URL=https://devnet.zama.ai
+```
+
+### 7. Deploy
+
+```bash
+# Local testing
+npx hardhat test
+
+# Deploy to Zama devnet
+npx hardhat run scripts/deploy.ts --network zama
+```
+
+## 🔑 Key Features
+
+- **Encrypted Salary Ranges**: Both parties submit encrypted min/max salary expectations
+- **Privacy-Preserving Matching**: Smart contract checks for overlap without revealing values
+- **Fair Meeting Point**: Calculates midpoint of overlapping range if match exists
+- **Verifiable Fairness**: All operations on encrypted data are provably correct
+
+## 📖 Usage Flow
+
+1. **Employer submits** encrypted salary range (min/max)
+2. **Job seeker submits** encrypted salary range (min/max)
+3. **Smart contract checks** for overlap in encrypted space
+4. **If overlap exists**: Calculates meeting point (midpoint)
+5. **Both parties can decrypt** the result to see the fair offer
+
+## 🧪 Testing
+
+```bash
+npx hardhat test
+```
+
+## 🔗 Useful Links
+
+- [Zama fhEVM Docs](https://docs.zama.ai/fhevm)
+- [fhEVM GitHub](https://github.com/zama-ai/fhevm)
+- [Hardhat Docs](https://hardhat.org/docs)
+
+
+
+
 # FairPay Barebone Angular Frontend
 
 Minimal functional frontend using latest Zama Relayer SDK and Ethers v6.
