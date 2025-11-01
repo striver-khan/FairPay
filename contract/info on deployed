@@ -1,0 +1,7 @@
+// with bytes memory cleartexts warning error
+
+Generating typings for: 6 artifacts in dir: types for target: ethers-v6
+Successfully generated 34 typings!
+Compiled 4 Solidity files successfully (evm target: cancun).
+deploying "FairPay" (tx: 0x135296a6b44dba628396ed54613200aa4e254e3600fb9c44e30fe78307f5fedf)...: deployed at 0xB78A0159f59195b3b95C4AdD75bA024753e015f0 with 2616180 gas
+FairPay contract:  0xB78A0159f59195b3b95C4AdD75bA024753e015f0
