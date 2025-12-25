@@ -290,7 +290,8 @@ ng build --configuration production
 - Check transaction logs on Etherscan
 
 ---
-- **Live Demo**: [fairpay.example.com](https://fairpay-six.vercel.app/)
+- **Live Video Demo**: [demo](https://www.youtube.com/watch?v=e0zYYwtWx_E)
+- **Live Demo**: [fairpay-six.vercel.com](https://fairpay-six.vercel.app/)
 - **Zama fhEVM**: [docs.zama.ai/fhevm](https://docs.zama.ai/fhevm)
 
 
