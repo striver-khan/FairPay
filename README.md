@@ -331,15 +331,6 @@ This project is licensed under the BSD-3-Clause-Clear License. See [LICENSE](LIC
 ---
 
 
-## 🔗 Links
-
-- **Live Demo**: [fairpay.example.com](https://fairpay.example.com)
-- **Documentation**: [docs.fairpay.example.com](https://docs.fairpay.example.com)
-- **Zama fhEVM**: [docs.zama.ai/fhevm](https://docs.zama.ai/fhevm)
-- **Contract on Etherscan**: [View Contract](https://sepolia.etherscan.io/address/0xYourContractAddress)
-
----
-
 ## 💡 Use Cases
 
 - **Corporate Hiring**: Fair salary negotiations for new hires
