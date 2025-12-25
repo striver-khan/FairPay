@@ -1,0 +1,61 @@
+<div class="list-container">
+  <div class="header">
+    <h2>My Negotiations</h2>
+    <button (click)="createNew()">+ Create New</button>
+  </div>
+
+  <!-- Not connected -->
+  <div *ngIf="!isConnected" class="warning">
+    Please connect your wallet to view negotiations
+  </div>
+
+  <!-- Loading -->
+  <div *ngIf="loading && isConnected" class="loading">
+    Loading negotiations...
+  </div>
+
+  <!-- Empty state -->
+  <div *ngIf="!loading && isConnected && negotiations.length === 0" class="empty">
+    <p>No negotiations found</p>
+    <button (click)="createNew()">Create First Negotiation</button>
+  </div>
+
+  <!-- Negotiations grid -->
+  <div *ngIf="!loading && isConnected && negotiations.length > 0" class="grid">
+    <div *ngFor="let neg of negotiations" class="card" (click)="viewDetails(neg.negotiationId)">
+      <div class="card-header">
+        <h3>{{ neg.title }}</h3>
+        <span class="id">#{{ neg.negotiationId }}</span>
+      </div>
+
+      <div class="card-body">
+        <div class="state" [attr.data-state]="neg.state">
+          {{ getStateName(neg.state) }}
+        </div>
+
+        <div class="role">
+          {{ isEmployer(neg) ? '👔 Employer' : '🧑‍💼 Candidate' }}
+        </div>
+
+        <div class="time">
+          ⏰ {{ getTimeRemaining(neg.deadline) }}
+        </div>
+
+        <div class="participants">
+          <div>👤 {{ formatAddress(neg.employer) }}</div>
+          <div>→</div>
+          <div>👤 {{ formatAddress(neg.candidate) }}</div>
+        </div>
+
+        <div *ngIf="neg.matchRevealed" class="result">
+          <span *ngIf="neg.hasMatchResult" class="match">
+            ✓ Match: ${{ neg.meetingPoint.toLocaleString() }}
+          </span>
+          <span *ngIf="!neg.hasMatchResult" class="no-match">
+            ✗ No Match
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

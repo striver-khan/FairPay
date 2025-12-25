@@ -1,0 +1,182 @@
+<div class="details-container">
+  <!-- Loading -->
+  <div *ngIf="loading" class="loading text-center py-10">
+    <span class="loading loading-spinner loading-lg"></span>
+    <p class="mt-4">Loading negotiation...</p>
+  </div>
+
+  <!-- Error -->
+  <div *ngIf="error" class="error-box p-6 rounded-lg bg-red-50 text-red-700">
+    <h3 class="font-bold">Error</h3>
+    <p>{{ error }}</p>
+    <button (click)="goBack()" class="btn btn-outline btn-sm mt-3">Back</button>
+  </div>
+
+  <!-- Main Content -->
+  <div *ngIf="!loading && !error && negotiation">
+    <!-- Header -->
+    <div class="header flex justify-between items-start mb-6">
+      <div>
+        <h2 class="text-3xl font-bold">{{ negotiation.title }}</h2>
+        <span class="text-gray-500 text-sm">ID #{{ negotiation.negotiationId }}</span>
+      </div>
+      <button (click)="goBack()" class="btn btn-ghost">Back</button>
+    </div>
+
+    <!-- Status Bar -->
+    <div class="status-bar grid grid-cols-3 gap-4 mb-8 text-center">
+      <div class="p-4 bg-base-200 rounded-lg">
+        <div class="text-sm opacity-70">Status</div>
+        <div class="font-bold text-lg">{{ getStateName(negotiation.state) }}</div>
+      </div>
+      <div class="p-4 bg-base-200 rounded-lg">
+        <div class="text-sm opacity-70">Your Role</div>
+        <div class="font-bold">
+          {{ isEmployer ? 'Employer' : 'Candidate' }}
+        </div>
+      </div>
+      <div class="p-4 rounded-lg" [class.bg-error]="isExpired" [class.bg-base-200]="!isExpired">
+        <div class="text-sm opacity-70">Time Left</div>
+        <div class="font-bold text-lg">
+          {{ isExpired ? 'Expired' : timeRemaining }}
+        </div>
+      </div>
+    </div>
+
+    <!-- Participants -->
+    <div class="participants flex items-center justify-center gap-8 my-8 text-center">
+      <div>
+        <strong>Employer</strong><br>
+        <span class="text-sm opacity-80">{{ negotiation.employer }}</span>
+      </div>
+      <div class="text-3xl opacity-30">→</div>
+      <div>
+        <strong>Candidate</strong><br>
+        <span class="text-sm opacity-80">{{ negotiation.candidate }}</span>
+      </div>
+    </div>
+
+    <!-- Timeline -->
+    <div class="timeline text-sm opacity-80 text-center space-y-1">
+      <div>Created: {{ formatDate(negotiation.createdAt) }}</div>
+      <div>Deadline: {{ formatDate(negotiation.deadline) }}</div>
+    </div>
+
+    <!-- STATE 0: Employer to submit -->
+    <div *ngIf="negotiation.state === 0" class="action-section">
+      <h3 class="text-2xl font-bold mb-4">Waiting for Employer Range</h3>
+      <div *ngIf="isEmployer && !isExpired" class="max-w-md mx-auto">
+        <form (ngSubmit)="submitEmployerRange()" #empForm="ngForm">
+          <div class="form-control">
+            <label>Minimum Salary ($)</label>
+            <input type="number" [(ngModel)]="employerRange.min" name="min" required min="10000" class="input input-bordered" />
+          </div>
+          <div class="form-control mt-3">
+            <label>Maximum Salary ($)</label>
+            <input type="number" [(ngModel)]="employerRange.max" name="max" required min="10000" class="input input-bordered" />
+          </div>
+          <div class="alert alert-info mt-4 text-sm">
+            Your range is fully encrypted — candidate will never see it.
+          </div>
+          <button type="submit" class="btn btn-primary w-full mt-4" [disabled]="submitting || empForm.invalid">
+            {{ submitting ? 'Encrypting & Submitting...' : 'Submit Encrypted Range' }}
+          </button>
+        </form>
+      </div>
+      <div *ngIf="!isEmployer" class="text-center py-8 text-gray-500">
+        Waiting for employer to submit their salary range...
+      </div>
+    </div>
+
+    <!-- STATE 1: Candidate to submit -->
+    <div *ngIf="negotiation.state === 1" class="action-section">
+      <h3 class="text-2xl font-bold mb-4">Submit Your Salary Expectations</h3>
+      <div *ngIf="isCandidate && !isExpired" class="max-w-md mx-auto">
+        <form (ngSubmit)="submitCandidateRange()" #candForm="ngForm">
+          <div class="form-control">
+            <label>Minimum Acceptable Salary ($)</label>
+            <input type="number" [(ngModel)]="candidateRange.min" name="min" required min="10000" class="input input-bordered" />
+          </div>
+          <div class="form-control mt-3">
+            <label>Desired Salary ($)</label>
+            <input type="number" [(ngModel)]="candidateRange.max" name="max" required min="10000" class="input input-bordered" />
+          </div>
+          <div class="alert alert-info mt-4 text-sm">
+            Your range is encrypted. Match calculated privately.
+          </div>
+          <button type="submit" class="btn btn-primary w-full mt-4" [disabled]="submitting || candForm.invalid">
+            {{ submitting ? 'Encrypting & Submitting...' : 'Submit Encrypted Range' }}
+          </button>
+        </form>
+      </div>
+      <div *ngIf="isEmployer" class="text-center py-8 text-gray-500">
+        Submitted! Waiting for candidate...
+      </div>
+    </div>
+
+    <!-- STATE 3: MATCH_READY → Reveal Button! -->
+    <div *ngIf="negotiation.state === 3" class="action-section text-center py-12">
+      <div class="max-w-lg mx-auto">
+        <div class="text-6xl mb-6">✓</div>
+        <h3 class="text-3xl font-bold mb-4">Match Calculated!</h3>
+        <p class="text-lg opacity-80 mb-8">
+          Both ranges submitted. Click below to privately reveal the result.
+        </p>
+        <button
+          (click)="revealResult()"
+          [disabled]="submitting"
+          class="btn btn-success btn-lg">
+          <span *ngIf="submitting" class="loading loading-spinner"></span>
+          {{ submitting ? 'Revealing Result...' : 'Reveal Match Result' }}
+        </button>
+        
+        <!-- Progress indicator when revealing -->
+        <div *ngIf="submitting && decryptionProgress" class="mt-6 p-4 bg-base-200 rounded-lg">
+          <p class="text-sm">{{ decryptionProgress }}</p>
+          <div *ngIf="decryptionAttempts > 0" class="text-xs opacity-70 mt-2">
+            Attempt {{ decryptionAttempts }} / {{ maxDecryptionAttempts }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STATE 4: Match Found -->
+    <div *ngIf="negotiation.state === 4 && negotiation.matchRevealed && negotiation.hasMatchResult" class="result-section success text-center py-12">
+      <div class="text-8xl mb-6">🎉</div>
+      <h3 class="text-4xl font-bold mb-6 text-success">Match Found!</h3>
+      <div class="text-5xl font-bold mb-8">
+        ${{ negotiation.meetingPoint.toLocaleString() }}
+      </div>
+      <p class="text-xl opacity-90 mb-8">
+        This is the fair meeting point both parties can agree on.
+      </p>
+      <div class="alert alert-success">
+        Privacy preserved • No ranges revealed • Perfect match found
+      </div>
+    </div>
+
+    <!-- STATE 4: No Match -->
+    <div *ngIf="negotiation.state === 4 && negotiation.matchRevealed && !negotiation.hasMatchResult" class="result-section no-match text-center py-12">
+      <div class="text-8xl mb-6">😔</div>
+      <h3 class="text-4xl font-bold mb-6 text-error">No Overlap Found</h3>
+      <p class="text-xl opacity-90 mb-8">
+        The salary ranges do not overlap.
+      </p>
+      <div class="alert alert-info max-w-md mx-auto">
+        <strong>Privacy 100% Protected:</strong> Neither party saw the other's range.
+      </div>
+    </div>
+
+    <!-- Submit Error -->
+    <div *ngIf="submitError" class="alert alert-error mt-6">
+      {{ submitError }}
+    </div>
+
+    <!-- Refresh Button -->
+    <div class="text-center mt-8">
+      <button (click)="refresh()" class="btn btn-outline">
+        Refresh Status
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,22 @@
+<div class="wallet">
+  <!-- Not connected -->
+  <div *ngIf="!state.connected">
+    <button (click)="connect()" [disabled]="connecting">
+      {{ connecting ? 'Connecting...' : 'Sign in' }}
+    </button>
+  </div>
+
+  <!-- Connected -->
+  <div *ngIf="state.connected" class="wallet-info">
+    <div class="address">
+      {{ formatAddress(state.address!) }}
+    </div>
+
+    <button (click)="disconnect()">Disconnect</button>
+  </div>
+
+  <!-- Wrong network warning -->
+  <div *ngIf="state.connected && !isCorrectNetwork" class="warning">
+    Please switch to Sepolia testnet
+  </div>
+</div>
