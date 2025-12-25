@@ -290,16 +290,9 @@ ng build --configuration production
 - Check transaction logs on Etherscan
 
 ---
+- **Live Demo**: [fairpay.example.com](https://fairpay-six.vercel.app/)
+- **Zama fhEVM**: [docs.zama.ai/fhevm](https://docs.zama.ai/fhevm)
 
-## 🛣️ Roadmap
-
-- [ ] Multi-chain support (Polygon, Arbitrum)
-- [ ] Email notifications for negotiation updates
-- [ ] Batch negotiations for multiple positions
-- [ ] Anonymous negotiations (privacy-preserving identities)
-- [ ] Integration with job boards
-- [ ] Mobile app (React Native)
-- [ ] Enhanced analytics dashboard
 
 ---
 
@@ -320,16 +313,6 @@ Contributions are welcome! Please follow these steps:
 This project is licensed under the BSD-3-Clause-Clear License. See [LICENSE](LICENSE) file for details.
 
 ---
-
-## 🙏 Acknowledgments
-
-- **Zama** - For the incredible fhEVM technology
-- **Ethereum Foundation** - For the robust blockchain infrastructure
-- **Hardhat** - For the excellent smart contract development tools
-- **Angular Team** - For the powerful frontend framework
-
----
-
 
 ## 💡 Use Cases
 
